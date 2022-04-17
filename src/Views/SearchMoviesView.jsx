@@ -27,7 +27,7 @@ export default function SearchMoviesView() {
              setQuery(sortQuery) 
             
         }
-     }, [])
+     }, [sortQuery])
 
     useEffect(() => {
         if (query !== "" && page !== prevPage.current) {        

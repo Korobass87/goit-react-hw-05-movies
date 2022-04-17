@@ -17,10 +17,9 @@ export default function MovieDetailsViel() {
    
 
     useEffect(()=>{
-      console.log(1);
-        apiId(movId.movieId)
+      apiId(movId.movieId)
         .then(({data})=>{setMovie(data)})
-    },[])
+    },[movId.movieId])
 
       return ( 
         movie && (<><section className='detais-section'>

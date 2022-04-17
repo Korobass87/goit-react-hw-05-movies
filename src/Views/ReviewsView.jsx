@@ -10,7 +10,7 @@ useEffect(()=>{
     .then(data=>setReview(data.data.results))
     
 
-}, [])    
+}, [id])    
 
 return (
     review && <ul className='review-list'>{
