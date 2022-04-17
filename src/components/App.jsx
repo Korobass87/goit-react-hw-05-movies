@@ -1,17 +1,37 @@
+import { Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
+import MovieDetailsViel from "Views/MovieDetailsViews";
+import SearchMoviesView from "Views/SearchMoviesView";
+import AppBar from "../AppBar/AppBar";
+import HomeVievs from "../Views/HomeViews";
+
 export const App = () => {
+
+
+
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        textTransform: 'uppercase',
-        color: '#010101',
-      }}
-    >
-      React homework template
-    </div>
-  );
+    <>
+    <AppBar/>
+
+      <Switch>
+
+    <Route exact path="/">
+        <HomeVievs/>
+    </Route>
+    
+    <Route exact path="/movies">
+        <SearchMoviesView/>
+    </Route>
+
+   
+
+    <Route path="/movies/:movieId">
+        <MovieDetailsViel/>
+    </Route>
+
+
+
+    </Switch>
+    </>
+  )
 };

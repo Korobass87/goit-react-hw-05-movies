@@ -1,0 +1,24 @@
+.navigation {
+    display: flex;
+    justify-content:start;
+    align-items: center;
+    height: 80px;
+    border-bottom: 1px solid #000;
+    background-color: rgb(207, 194, 173);
+    padding: 20px;
+}
+
+.link-nav{
+    font-weight: 600;
+    color: rgb(90, 60, 3);
+    text-decoration: none;
+    
+}
+.link-nav:not(:last-child){
+    margin-right: 10px;
+}
+
+.active-link-nav {
+    font-weight: 700;
+    color: rgb(233, 141, 36);
+}

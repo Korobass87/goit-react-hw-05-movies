@@ -1,0 +1,163 @@
+html {
+    box-sizing: border-box;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+
+.film-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-right: auto;margin-left: auto;
+    padding: 0;
+    margin-top: 0;
+}
+
+.film-item {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    text-decoration: none;
+    overflow: hidden;
+  
+
+    margin: 10px;
+    border: 2px solid rgb(204, 199, 199);
+    border-radius: 8px;
+    background-color: rgb(204, 199, 199);
+
+
+}
+
+.film-item:not(:last-child) {
+    margin-right: 10px;
+}
+
+.film-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    text-decoration: none;
+    color: aliceblue;
+    padding-left: 5px;padding-right: 5px;
+    text-align: center;
+}
+
+.home-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.link-item {
+    text-decoration: none;
+}
+body {
+    background-color: darkgray;
+}
+
+.LoadMore {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+}
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+}
+
+input {
+    margin-right: 10px;
+    width: 250px;
+    height: 30px;
+    border-radius: 10px;
+    border-color: black;
+    overflow: hidden;
+    background-color: #000;
+    color: #fff;
+    font-weight: 600;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 100px;
+    border-radius: 10px;
+    background-color:  #000;
+    color: #fff;
+    font-weight: 500;
+}
+
+.detais-section {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+}
+
+.container-film {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+.container-film > h2 {
+margin: 0;
+}
+.container-film > p {
+    margin: 0;
+}
+
+.film-more-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.review-list {
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 95vw;
+    list-style: none;
+}
+
+.autor {
+    font-size: 20px;
+    font-weight: normal;
+    color: rgb(59, 59, 59);
+}
+
+.span-autor {
+    color: #000;
+    font-weight: 700;
+}
+
+.review {
+    padding: 5px;
+    border: #000 solid 1px;
+}
+
+.average-span {
+    color: #000;
+    font-weight: 700;
+}
