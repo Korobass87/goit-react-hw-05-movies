@@ -39,6 +39,7 @@ export default function SearchMoviesView() {
                     prevQuery.current = query
                 }) 
         }            
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page])
 
     useEffect(() => {
@@ -58,6 +59,7 @@ export default function SearchMoviesView() {
                 })
             .then(history.push({ ...location, search: `query=${query}&page=${sortPage ? Number(sortPage) : page}` }))
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query])
 
     function onQuery (e) {
