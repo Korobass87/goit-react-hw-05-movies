@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
+import ListFilm from 'components/Listfilm/ListFilm'
+import { useState, useEffect, useRef} from 'react'
 import { useHistory } from 'react-router-dom'
-import {Link} from 'react-router-dom'
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min'
 import {apiSearchMov} from "../AppBar/API/API"
-import image from '../Image/image.png'
+
 
 
 export default function SearchMoviesView() {
@@ -25,42 +25,45 @@ export default function SearchMoviesView() {
     useEffect(() => {
          if (sortQuery) {
              setQuery(sortQuery) 
-            
+             setPage(Number(sortPage))
         }
-     }, [sortQuery])
 
-    useEffect(() => {
-        if (query !== "" && page !== prevPage.current) {        
-            apiSearchMov(query, page)
-                .then(data => {                    
-                    setList([...list, ...data.data.results])
-                    setMaxPage(data.data.total_pages)
-                    history.push({ ...location, search: `query=${query}&page=${page}` })
-                    prevQuery.current = query
-                }) 
-        }            
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page])
+       
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+     }, [])
 
     useEffect(() => {
         if (query !== "" && prevQuery.current !== query) {
             
-            if (sortPage) {prevPage.current = Number(sortPage)}
-
-            apiSearchMov(query, (sortPage ? Number(sortPage) : 1))
-                .then(data => {
-                    
-                    setList(data.data.results)
-                    setPage(sortPage ? Number(sortPage) : 1)
-                    
-                    setMaxPage(data.data.total_pages)
-                    
+            console.log(prevQuery.current);
+            
+           apiSearchMov(query, sortPage && !prevQuery.current ? sortPage : 1)
+            .then(data => {
+                setList(data.data.results)
+                if(!!prevQuery.current) {setPage(1)}
+                 setMaxPage(data.data.total_pages)
+                    history.push({ ...location, search: `query=${query}&page=${sortPage && !prevQuery.current ? sortPage : 1}` })
                     prevQuery.current = query
-                })
-            .then(history.push({ ...location, search: `query=${query}&page=${sortPage ? Number(sortPage) : page}` }))
+                    prevPage.current = location.search
+            })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query])
+
+
+    useEffect(() => {
+        if (prevQuery.current === query) {
+            console.log(page)
+            apiSearchMov(query, page)
+                .then(data => {
+                    setList([...list, ...data.data.results])
+                    history.push({ ...location, search: `query=${query}&page=${page}` })
+                    
+                })
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]) 
+    
 
     function onQuery (e) {
         setInputValue(e.target.value)
@@ -78,7 +81,8 @@ export default function SearchMoviesView() {
     }
     
 
-  return (
+    return (
+      
     <>
         <form action="" onSubmit={onSubmit}>
             <input value={inputValue} onChange={onQuery}>        
@@ -87,18 +91,7 @@ export default function SearchMoviesView() {
         </form>
 
           {list && <>
-                <ul className='film-list'>
-                    {list.map(item =>
-                        <li className='film-item' key={item.id}>
-                            <Link className='link-item' to={`/movies/${item.id}`} >
-                                <img width="250" height="340" src={
-                                    item.poster_path
-                                    ? `https://image.tmdb.org/t/p/w500/${item.poster_path}` 
-                                    : image } alt={item.title} />
-                                <h3 className='film-item-header'>{item.title}</h3>
-                            </Link>
-                        </li>)}
-                </ul>
+              <ListFilm movies={list}/>               
                 <div className='LoadMore'>
                     {(page<maxPage) && <button className='loadMore-btn' onClick={onLoadMore}>Load More</button>}
                 </div>                    

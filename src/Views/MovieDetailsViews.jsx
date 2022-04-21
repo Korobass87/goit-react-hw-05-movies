@@ -1,17 +1,20 @@
 
-import { useState, useEffect } from 'react'
-import { NavLink, useRouteMatch, Route } from 'react-router-dom'
+import { useState, useEffect, lazy, Suspense } from 'react'
+import { NavLink, useRouteMatch, Route, useLocation, useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { apiId } from '../AppBar/API/API'
-import ReviewsView from './ReviewsView'
+// import ReviewsView from './ReviewsView'
 import image from '../Image/image.png'
+const ReviewsView =lazy(()=>import('../Views/ReviewsView'))
 
 
 
 export default function MovieDetailsViel() {
-    const[movie, setMovie]=useState(null)
-    const URL = useRouteMatch()
-    
+  const[movie, setMovie]=useState(null)
+  const URL = useRouteMatch()
+  const location = useLocation()
+  const history = useHistory()
+  console.log(location);  
 
     const movId = useParams()
    
@@ -19,7 +22,15 @@ export default function MovieDetailsViel() {
     useEffect(()=>{
       apiId(movId.movieId)
         .then(({data})=>{setMovie(data)})
-    },[movId.movieId])
+    }, [movId.movieId])
+  
+  function onBack() {
+    
+      history.push(location?.state?.from ?? '/')
+      
+    }
+    
+  
 
       return ( 
         movie && (<><section className='detais-section'>
@@ -35,19 +46,31 @@ export default function MovieDetailsViel() {
               <p>{movie.overview}</p>
             </div>
           
+          </div>
+
+          <div>
+          <button type='button' onClick={onBack}>BACK</button>
             <Route exact path={`${URL.url}`}>
-              <NavLink exact to={`${URL.url}/review`}>
+
+              <NavLink exact to={{
+                pathname: `${URL.url}/review`,
+                state: {...location.state}
+              }}>
+              
                 <button>SHOW REVIEW</button>
               </NavLink>
-            </Route>
+          </Route>
           </div>
+          
 
         
     </section>
             
-            <Route path={`${URL.url}/review`}>
+          <Route path={`${URL.url}/review`}>
+            <Suspense fallback={<h2>LOADING</h2>}>
               <ReviewsView id={movId.movieId}/>
-            </Route>
+            </Suspense>  
+          </Route>
   </>)
   )
 }

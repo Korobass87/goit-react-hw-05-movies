@@ -1,9 +1,10 @@
 import React from 'react'
 import { apiFavMov } from 'AppBar/API/API'
 import { useEffect, useState } from 'react'
-import "../style/HomeVievs.css"
 
-import { Link} from 'react-router-dom'
+
+
+import ListFilm from 'components/Listfilm/ListFilm'
 
 
 
@@ -27,12 +28,16 @@ export default function HomeVievs() {
   return (
     <>
     
-    <h2 className='home-header'>HITS TODAY</h2>
-            <ul className='film-list'>
+          <h2 className='home-header'>HITS TODAY</h2>
+          {movies && <ListFilm movies={movies} />}
+            {/* <ul className='film-list'>
 
                 { movies && movies.map((mov)=>(
                     <li className='film-item' key={mov.id}>
-                        <Link className='link-item' to={`/movies/${mov.id}`} >
+                        <Link className='link-item' to={{
+                                pathname: `/movies/${mov.id}`,
+                                state: {from: location}
+                            }}>
                         <img width="250" src={`https://image.tmdb.org/t/p/w200/${mov.poster_path}`} alt={mov.title} />
                         <h3 className='film-item-header'>{mov.title}</h3>
                         </Link>
@@ -41,7 +46,7 @@ export default function HomeVievs() {
                 
                 
             }
-            </ul>
+            </ul> */}
     </>
   )
 }
